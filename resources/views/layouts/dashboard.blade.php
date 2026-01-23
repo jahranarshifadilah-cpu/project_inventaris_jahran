@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Dashboard - @yield('title')</title>
 
     <meta name="description" content="" />
 
@@ -63,6 +63,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{asset('assets/js/config.js')}}"></script>
+    @stack('styles')
   </head>
 
   <body>
@@ -77,18 +78,20 @@
         <div class="layout-page">
           <!-- Navbar -->
             @include('layouts.components-dashboard.navbar')
-
-          <!-- end Navbar -->
+          <!-- / end Navbar -->
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-            @yield('content')
-            <!-- end content Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+                @include('layouts._toast')
+                @yield('content')
+            </div>
+            <!-- end Content -->
 
             <!-- Footer -->
             @include('layouts.components-dashboard.footer')
-            <!-- end Footer -->
+            <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -102,17 +105,11 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-      <a
-        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
-      >
-    </div>
+
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
+    @include('sweetalert::alert')
     <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
     <script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
@@ -131,6 +128,8 @@
     <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js')}}"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    @stack('scripts')
   </body>
 </html>
