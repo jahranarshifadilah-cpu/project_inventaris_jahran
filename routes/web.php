@@ -1,22 +1,33 @@
 <?php
-
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// inventaris
 Auth::routes(['register' => false]);
 
-// tracking
-// Auth::routes();
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('dashboard')
+    ->name('dashboard.')
+    ->middleware('auth')
+    ->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::resource('users', UserController::class);
+    });
 
-// Dashboard routes
-Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
-    Route::get('/', [App\Http\Controllers\Dashboard\DashboardController::class, 'index'])->name('index');
-    Route::resource('users', App\Http\Controllers\Dashboard\UserController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('barang', BarangController::class);
+    Route::resource('kategori', KategoriController::class);
+    Route::resource('lokasi', LokasiController::class);
+    Route::resource('peminjaman', PeminjamanController::class);
 });
