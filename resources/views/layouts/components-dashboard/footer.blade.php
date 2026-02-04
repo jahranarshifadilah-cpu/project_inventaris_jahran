@@ -1,30 +1,31 @@
-<footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  ©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
-                </div>
-                <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+<footer class="content-footer footer bg-footer-theme border-top">
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-3 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+            <span class="text-muted">
+                © <script>document.write(new Date().getFullYear());</script>
+                <strong>Sistem Inventaris Barang</strong>. Dikembangkan dengan ❤️ untuk kelancaran operasional.
+            </span>
+        </div>
 
-                  <a
-                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Documentation</a
-                  >
+        <div class="d-none d-lg-inline-block">
+            <a href="#" class="footer-link me-4 text-muted">Bantuan</a>
+            <a href="#" class="footer-link me-4 text-muted">Kebijakan Privasi</a>
+            <span class="badge bg-label-primary rounded-pill px-3">v1.0.4-stable</span>
+        </div>
+    </div>
+</footer>
 
-                  <a
-                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Support</a
-                  >
-                </div>
-              </div>
-            </footer>
+<style>
+    /* Membuat footer tetap elegan dan tidak mencolok */
+    .content-footer {
+        background-color: transparent !important; /* Agar menyatu dengan background dashboard */
+    }
+    .footer-link:hover {
+        color: #696cff !important;
+        text-decoration: underline;
+    }
+    .badge.bg-label-primary {
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+    }
+</style>
