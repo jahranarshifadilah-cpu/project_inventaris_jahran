@@ -3,65 +3,93 @@
 @section('title', 'Edit Barang')
 
 @section('content')
-<style>
-    .card-barang { border-radius: 15px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-    .form-control, .form-select { border-radius: 10px; padding: 12px; }
-    .btn-update { background: #696cff; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 600; }
-</style>
+<h2 class="h4 mb-4">Edit Barang</h2>
 
-<div class="mb-4">
-    <h3 class="fw-bold">Edit Barang</h3>
-    <p class="text-muted">ID Sistem: #{{ $barang->id }}</p>
-</div>
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
 
-<div class="card card-barang">
-    <div class="card-body p-4">
         <form action="{{ route('barang.update', $barang->id) }}" method="POST">
-            @csrf @method('PUT')
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <label class="form-label fw-bold">Kode Barang (Otomatis)</label>
-                    <input type="text" class="form-control bg-light" value="{{ $barang->kode_barang }}" readonly>
-                </div>
-                <div class="col-md-12 mb-3">
-                    <label class="form-label fw-bold">Nama Barang</label>
-                    <input type="text" name="nama_barang" class="form-control" value="{{ $barang->nama_barang }}" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Kategori</label>
-                    <select name="kategori_id" class="form-select">
-                        @foreach($kategori as $cat)
-                            <option value="{{ $cat->id }}" {{ $barang->kategori_id == $cat->id ? 'selected' : '' }}>{{ $cat->nama }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Lokasi</label>
-                    <select name="lokasi_id" class="form-select">
-                        @foreach($lokasi as $lok)
-                            <option value="{{ $lok->id }}" {{ $barang->lokasi_id == $lok->id ? 'selected' : '' }}>{{ $lok->nama }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label class="form-label fw-bold">Jumlah</label>
-                    <input type="number" name="jumlah" class="form-control" value="{{ $barang->jumlah }}">
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label class="form-label fw-bold">Satuan</label>
-                    <input type="text" name="satuan" class="form-control" value="{{ $barang->satuan }}">
-                </div>
-                <div class="col-md-4 mb-4">
-                    <label class="form-label fw-bold">Kondisi</label>
-                    <select name="kondisi" class="form-select">
-                        <option value="baik" {{ $barang->kondisi == 'baik' ? 'selected' : '' }}>Baik</option>
-                        <option value="rusak" {{ $barang->kondisi == 'rusak' ? 'selected' : '' }}>Rusak</option>
-                    </select>
-                </div>
+            @csrf
+            @method('PUT')
+
+            {{-- KODE BARANG (READONLY) --}}
+            <div class="mb-3">
+                <label class="form-label">Kode Barang</label>
+                <input type="text" class="form-control" value="{{ $barang->kode_barang }}" readonly>
             </div>
-            <button type="submit" class="btn btn-update">Simpan Perubahan</button>
-            <a href="{{ route('barang.index') }}" class="btn btn-light ms-2" style="border-radius: 10px;">Batal</a>
+
+            {{-- NAMA --}}
+            <div class="mb-3">
+                <label class="form-label">Nama Barang</label>
+                <input type="text" name="nama_barang"
+                       class="form-control"
+                       value="{{ old('nama_barang', $barang->nama_barang) }}" required>
+            </div>
+
+            {{-- KATEGORI --}}
+            <div class="mb-3">
+                <label class="form-label">Kategori</label>
+                <select name="kategori_id" class="form-select" required>
+                    @foreach($kategori as $item)
+                        <option value="{{ $item->id }}"
+                            {{ $barang->kategori_id == $item->id ? 'selected' : '' }}>
+                            {{ $item->nama }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- LOKASI --}}
+            <div class="mb-3">
+                <label class="form-label">Lokasi</label>
+                <select name="lokasi_id" class="form-select" required>
+                    @foreach($lokasi as $item)
+                        <option value="{{ $item->id }}"
+                            {{ $barang->lokasi_id == $item->id ? 'selected' : '' }}>
+                            {{ $item->nama }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- JUMLAH --}}
+            <div class="mb-3">
+                <label class="form-label">Jumlah</label>
+                <input type="number" name="jumlah"
+                       class="form-control"
+                       value="{{ $barang->jumlah }}" required>
+            </div>
+
+            {{-- SATUAN --}}
+            <div class="mb-3">
+                <label class="form-label">Satuan</label>
+                <input type="text" name="satuan"
+                       class="form-control"
+                       value="{{ $barang->satuan }}" required>
+            </div>
+
+            {{-- KONDISI --}}
+            <div class="mb-3">
+                <label class="form-label">Kondisi</label>
+                <select name="kondisi" class="form-select">
+                    <option value="baik" {{ $barang->kondisi == 'baik' ? 'selected' : '' }}>
+                        Baik
+                    </option>
+                    <option value="rusak" {{ $barang->kondisi == 'rusak' ? 'selected' : '' }}>
+                        Rusak
+                    </option>
+                </select>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary">Update</button>
+                <a href="{{ route('barang.index') }}" class="btn btn-secondary">
+                    Batal
+                </a>
+            </div>
+
         </form>
+
     </div>
 </div>
 @endsection

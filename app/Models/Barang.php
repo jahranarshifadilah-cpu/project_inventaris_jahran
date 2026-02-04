@@ -6,22 +6,35 @@ use Illuminate\Database\Eloquent\Model;
 
 class Barang extends Model
 {
-    protected $table = 'barang'; // Nama tabel di database
+    protected $table = 'barang';
 
     protected $fillable = [
-        'kode_barang', 'nama_barang', 'kategori_id', 'lokasi_id', 
-        'kondisi', 'jumlah', 'satuan', 'harga', 'foto'
+        'kode_barang',
+        'nama_barang',
+        'kategori_id',
+        'lokasi_id',
+        'kondisi',
+        'jumlah',
+        'satuan',
+        'tanggal_beli',
+        'harga',
+        'deskripsi',
+        'foto'
     ];
 
-    // Relasi ke tabel Kategoris
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class, 'kategori_id');
+        return $this->belongsTo(Kategori::class);
     }
 
-    // Relasi ke tabel Lokasis
     public function lokasi()
     {
-        return $this->belongsTo(Lokasi::class, 'lokasi_id');
+        return $this->belongsTo(Lokasi::class);
+    }
+
+    public function peminjaman()
+    {
+        return $this->belongsToMany(Peminjaman::class, 'detail_peminjaman')
+            ->withPivot('jumlah', 'kondisi_sebelum', 'kondisi_sesudah');
     }
 }

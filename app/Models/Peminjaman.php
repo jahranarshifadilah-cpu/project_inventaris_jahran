@@ -6,21 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Peminjaman extends Model
 {
+    protected $table = 'peminjaman';
+
     protected $fillable = [
         'kode_peminjaman',
         'nama_peminjam',
         'jenis_peminjam',
-        'barang_id',
-        'jumlah',
         'tanggal_pinjam',
         'tanggal_kembali',
         'status',
-        'user_id'
+        'user_id',
     ];
 
     public function barang()
     {
-        return $this->belongsTo(Barang::class);
+        return $this->belongsToMany(Barang::class, 'detail_peminjaman')
+            ->withPivot('jumlah', 'kondisi_sebelum', 'kondisi_sesudah');
     }
 
     public function user()
