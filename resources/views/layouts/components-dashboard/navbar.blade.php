@@ -1,4 +1,4 @@
- <nav
+          <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar"
           >
@@ -54,8 +54,8 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
-                            <small class="text-muted">{{Auth::user()->email}}</small>
+                            <span class="fw-semibold d-block">{{Auth::User()->name}}</span>
+                            <small class="text-muted">{{Auth::User()->email}}</small>
                           </div>
                         </div>
                       </a>
@@ -80,11 +80,13 @@
                     </li>
                     <li>
                       <a class="dropdown-item" href="{{ route('logout') }}"
-                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
-                      <form action="{{ route('logout') }}" method="post" id="logout-form"></form>
+                      <form action="{{ route('logout') }}" method="post" id="logout-form">
+                        @csrf
+                      </form>
                     </li>
                   </ul>
                 </li>
