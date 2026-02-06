@@ -1,6 +1,6 @@
 <?php
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\BarangController;
@@ -14,8 +14,6 @@ Route::get('/', function () {
 });
 
 Auth::routes(['register' => false]);
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('dashboard')
     ->name('dashboard.')
@@ -31,3 +29,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('lokasi', LokasiController::class);
     Route::resource('peminjaman', PeminjamanController::class);
 });
+
+Route::get(
+    'peminjaman-export',
+    [PeminjamanController::class, 'export']
+)->name('peminjaman.export');
+
+Route::get(
+    'barang-export',
+    [BarangController::class, 'export']
+)->name('barang.export');
